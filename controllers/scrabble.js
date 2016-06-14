@@ -22,7 +22,7 @@ ScrabbleController = {
   },
 
   scoreWord: function(req, res) {
-    var word = req.body.word
+    var word = req.params.word
     var score = ScrabbleController._score(word)
     var locals = ScrabbleController.locals
 
