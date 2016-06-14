@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <form action="/scrabble/score" method="post">
+      <fieldset>
+        <legend>Score A Word</legend>
+        <label for="word">Word to Score:</label>
+        <input type="text" id="word" name="word">
+        <input type="submit">
+      </fieldset>
+    </form>
+  </body>
+</html>

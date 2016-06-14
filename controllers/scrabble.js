@@ -14,11 +14,11 @@ ScrabbleController = {
   },
 
   scoreForm: function(req, res) {
-    res.render('scoreForm', {})
+    res.render('score_form', ScrabbleController.locals)
   },
 
   scorePost: function(req, res) {
-
+    res.redirect(303, '/scrabble/score/' + req.body.word)
   },
 
   scoreWord: function(req, res) {
