@@ -3,7 +3,12 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "nodemon ./bin/www",
+    "db:drop": "dropdb scrabble_express",
+    "db:create": "createdb scrabble_express",
+    "db:schema": "node tasks/load_schema.js",
+    "db:seed": "",
+    "db:reset": "npm run db:drop; npm run db:create; npm run db:schema"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
