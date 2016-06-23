@@ -4,11 +4,12 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
-    "db:drop": "dropdb scrabble_express",
-    "db:create": "createdb scrabble_express",
+    "db:drop": "dropdb scrabble_express_dev; dropdb scrabble_express_test",
+    "db:create": "createdb scrabble_express_dev; createdb scrabble_express_test",
     "db:schema": "node tasks/load_schema.js",
     "db:seed": "node tasks/seed.js",
-    "db:reset": "npm run db:drop; npm run db:create; npm run db:schema; npm run db:seed"
+    "db:reset": "npm run db:drop; npm run db:create; npm run db:schema; npm run db:seed",
+    "test": "NODE_ENV=test ./node_modules/.bin/jasmine-node --verbose spec/"
   },
   "dependencies": {
     "body-parser": "~1.13.2",

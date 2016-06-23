@@ -1,13 +1,19 @@
 var massive = require('massive')
-var connectionString = "postgres://localhost/scrabble_express"
+var connectionString = "postgres://localhost/scrabble_express_"
+var envs = ['dev', 'test']
+var complete = []
 
-var db = massive.connectSync({connectionString : connectionString})
+envs.forEach(function(env) {
+  var db = massive.connectSync({ connectionString: connectionString + env })
 
-db.setup.schema([], function(err, res) {
-  if (err) {
-    throw(new Error(err.message))
-  }
+  db.setup.schema([], function(err, res) {
+    if (err) {
+      throw(new Error(err.message))
+    }
 
-  console.log("yay schema!")
-  process.exit()
+    console.log("yay " + env + " schema!")
+    complete.push(env)
+
+    if (complete.length === envs.length) { process.exit() }
+  })  
 })
