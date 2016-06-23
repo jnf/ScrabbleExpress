@@ -4,7 +4,9 @@ var favicon = require('serve-favicon')
 var logger = require('morgan')
 var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
-var app = express()
+var Scorer = require('./lib/scrabble_scorer')
+
+var app = module.exports = express()
 
 var massive = require("massive")
 var connectionString = "postgres://localhost/scrabble_express_" + app.get('env')
@@ -13,6 +15,9 @@ var connectionString = "postgres://localhost/scrabble_express_" + app.get('env')
 // convenience sync method here because its on app load
 // you can also use loadSync - it's an alias
 var massiveInstance = massive.connectSync({connectionString : connectionString})
+
+// set a reference to the Scorer instance on Express' app:
+app.set('scorer', new Scorer())
 
 // Set a reference to the massive instance on Express' app:
 app.set('db', massiveInstance)
@@ -65,6 +70,3 @@ app.use(function(err, req, res, next) {
     error: {}
   })
 })
-
-
-module.exports = app
