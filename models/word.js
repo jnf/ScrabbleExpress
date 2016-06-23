@@ -30,8 +30,10 @@ Word.save = function (word, callback) {
   })
 }
 
+// attach housekeeping functions if we're in test
 if(app.get('env') === 'test') {
   Word.end = function () { db.end() }
+  Word.clean = function(callback) { db.setup.schema(callback) }
 }
 
 module.exports = Word

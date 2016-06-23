@@ -1,6 +1,10 @@
 var Word = require('../../models/word')
 
 describe('Word', function () {
+  beforeEach(function(done) {
+    Word.clean(done)
+  })
+
   afterEach(function() {
     Word.end()
   })
