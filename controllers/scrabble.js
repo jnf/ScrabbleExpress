@@ -22,8 +22,9 @@ ScrabbleController = {
   },
 
   scoreWord: function(req, res) {
-    var db = req.app.get('db')
+    // var db = req.app.get('db')
     var word = req.params.word
+    
     // look in the db for the word
     db.words.where("word=$1", [word], function(err, result) {
       var locals = ScrabbleController.locals
