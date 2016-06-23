@@ -8,7 +8,7 @@ function Word(data) {
 }
 
 // class functions
-Word.find_or_create_by_word = function (word, callback) {
+Word.findOrCreateByWord = function (word, callback) {
   db.words.findOne({ word: word }, function (error, result) {
     if (error) { callback(error, undefined) }
 

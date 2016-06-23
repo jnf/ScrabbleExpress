@@ -24,7 +24,7 @@ ScrabbleController = {
   scoreWord: function(req, res) {
     var word = req.params.word
 
-    Word.find_or_create_by_word(word, function (error, result, next) {
+    Word.findOrCreateByWord(word, function (error, result, next) {
       if (error) {
         next(error)
       } else {
