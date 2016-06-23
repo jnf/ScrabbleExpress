@@ -23,15 +23,14 @@ ScrabbleController = {
 
   scoreWord: function(req, res) {
     var word = req.params.word
+    var locals = ScrabbleController.locals
 
     Word.findOrCreateByWord(word, function (error, result, next) {
       if (error) {
         next(error)
       } else {
-        var locals = ScrabbleController.locals
         locals.word = result.word
         locals.score = result.score
-        locals.result = [error, result]
         
         res.render('scored', locals)       
       }
