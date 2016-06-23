@@ -1,4 +1,4 @@
-var Scorer = require('../lib/scrabble_scorer')
+var Word = require('../models/word')
 
 ScrabbleController = {
   locals: {
@@ -22,30 +22,19 @@ ScrabbleController = {
   },
 
   scoreWord: function(req, res) {
-    // var db = req.app.get('db')
     var word = req.params.word
-    
-    // look in the db for the word
-    db.words.where("word=$1", [word], function(err, result) {
-      var locals = ScrabbleController.locals
 
-      // if we found the word, use it
-      if (result.length > 0) {
-        var score = result[0].score
-      } else { // if we didn't, score it, then send it to the database
-        var score = ScrabbleController._score(word)
-        // how do I send it to the database?
-        db.words.save({ word: word, score: score }, function(err, inserted) {
-          //do I care about this callback?
-          if (err) { throw new Error(err.message) }
-        })
+    Word.find_or_create_by_word(word, function (error, result, next) {
+      if (error) {
+        next(error)
+      } else {
+        var locals = ScrabbleController.locals
+        locals.word = result.word
+        locals.score = result.score
+        locals.result = [error, result]
+        
+        res.render('scored', locals)       
       }
-
-      locals.word = word
-      locals.score = score
-      locals.result = [err, result]
-      
-      res.render('scored', locals)  
     })
   },
 

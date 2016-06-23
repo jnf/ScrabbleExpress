@@ -8,14 +8,30 @@ function Word(data) {
 }
 
 // class functions
-Word.find_by_word = function (word, callback) {
+Word.find_or_create_by_word = function (word, callback) {
   db.words.findOne({ word: word }, function (error, result) {
     if (error) {
       callback(error, undefined)
     } else {
-      // if we have a result, send it to the constructor. else send an empty object
-      callback(null, new Word(result || {}))
+      if (result) { // already in the db
+        var wordInstance = new Word(result)
+        callback(null, wordInstance)
+      } else { // not in the db
+        Word.save(word, callback)
+      }
     }
+  })
+}
+
+Word.save = function (word, callback) {
+  var scorer = app.get('scorer')
+  var score = scorer.score(word)
+
+  db.words.save({word: word, score: score}, function (error, result) {
+    if (error) { callback(error, undefined) }
+
+    var instance = new Word(result)
+    callback(null, instance)
   })
 }
 
