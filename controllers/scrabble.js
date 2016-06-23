@@ -36,11 +36,6 @@ ScrabbleController = {
         res.render('scored', locals)       
       }
     })
-  },
-
-  _score: function(word) {
-    var scorer = new Scorer()
-    return scorer.score(word)
   }
 }
 
