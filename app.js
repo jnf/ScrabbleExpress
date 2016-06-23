@@ -7,7 +7,7 @@ var bodyParser = require('body-parser')
 var app = express()
 
 var massive = require("massive")
-var connectionString = "postgres://localhost/scrabble_express"
+var connectionString = "postgres://localhost/scrabble_express_" + app.get('env')
 
 // connect to Massive and get the db instance. You can safely use the
 // convenience sync method here because its on app load
