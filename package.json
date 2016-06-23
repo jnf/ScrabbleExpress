@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
-    "db:drop": "dropdb scrabble_express_dev; dropdb scrabble_express_test",
-    "db:create": "createdb scrabble_express_dev; createdb scrabble_express_test",
+    "db:drop": "dropdb scrabble_express_development; dropdb scrabble_express_test",
+    "db:create": "createdb scrabble_express_development; createdb scrabble_express_test",
     "db:schema": "node tasks/load_schema.js",
     "db:seed": "node tasks/seed.js",
     "db:reset": "npm run db:drop; npm run db:create; npm run db:schema; npm run db:seed",

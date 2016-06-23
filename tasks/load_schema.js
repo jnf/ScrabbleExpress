@@ -1,6 +1,6 @@
 var massive = require('massive')
 var connectionString = "postgres://localhost/scrabble_express_"
-var envs = ['dev', 'test']
+var envs = ['development', 'test']
 var complete = []
 
 envs.forEach(function(env) {

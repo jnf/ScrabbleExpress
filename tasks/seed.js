@@ -1,7 +1,7 @@
 var massive = require('massive')
 var connectionString = "postgres://localhost/scrabble_express_"
 var data = require('../db/seeds/words.json')
-var envs = ['dev', 'test']
+var envs = ['development', 'test']
 
 
 envs.forEach(function(env) {
