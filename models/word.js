@@ -10,28 +10,23 @@ function Word(data) {
 // class functions
 Word.find_or_create_by_word = function (word, callback) {
   db.words.findOne({ word: word }, function (error, result) {
-    if (error) {
-      callback(error, undefined)
-    } else {
-      if (result) { // already in the db
-        var wordInstance = new Word(result)
-        callback(null, wordInstance)
-      } else { // not in the db
-        Word.save(word, callback)
-      }
+    if (error) { callback(error, undefined) }
+
+    if (result) { // already in the db
+      var wordInstance = new Word(result)
+      callback(null, wordInstance)
+    } else { // not in the db
+      Word.save(word, callback)
     }
   })
 }
 
 Word.save = function (word, callback) {
-  var scorer = app.get('scorer')
-  var score = scorer.score(word)
+  var score = app.get('scorer').score(word)
 
-  db.words.save({word: word, score: score}, function (error, result) {
+  db.words.save({ word: word, score: score }, function (error, result) {
     if (error) { callback(error, undefined) }
-
-    var instance = new Word(result)
-    callback(null, instance)
+    callback(null, new Word(result))
   })
 }
 
